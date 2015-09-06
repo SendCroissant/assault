@@ -32,3 +32,5 @@ dota.exe
 /*/dota_addons/tutorial_basics/**
 /*/dota_addons/ui_example/**
 
+game/dota_addons/assault/tools_thumbnail_cache.bin
+game/dota_addons/assault/tools_asset_info.bin

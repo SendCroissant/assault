@@ -1,68 +1,78 @@
 "DOTAAbilities"
 {
-  // Shield
-  "item_example_item"
+
+  "item_wave_gun"
   {
-    "ID"              "1836"
-    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
-    //"AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
-    "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_CREEP"
-    "BaseClass"           "item_datadriven"
-    "AbilityCastAnimation"      "ACT_DOTA_DISABLED"
-    "AbilityTextureName"      "item_example_item"
+    "ID"                        "1837"
+    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+    "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_ALL"
+    "BaseClass"                 "item_datadriven"
+    "AbilityCastAnimation"      "ACT_DOTA_ATTACK"
+    "AbilityTextureName"        "item_wave_gun"
 
     // Stats
     //-------------------------------------------------------------------------------------------------------------
-    "AbilityCastRange"        "9000"
-    "AbilityCastPoint"        "0.2"
-    "AbilityCooldown"       "3.0"
+    "AbilityCastRange"        "900"
+    "AbilityCastPoint"        "0.3"
+    "AbilityCooldown"         "3.0"
 
     // Item Info
     //-------------------------------------------------------------------------------------------------------------
-    "AbilityManaCost"       "10"
-    "ItemCost"            "750"
-    "ItemInitialCharges"      "100"
+    "AbilityManaCost"       "0"
+    "ItemCost"            "0"
+    "ItemInitialCharges"      "5"
     "ItemDroppable"         "1"
-    "ItemSellable"          "0"
-    "ItemRequiresCharges"     "10"
+    "ItemSellable"          "1"
+    "ItemRequiresCharges"     "1"
     "ItemShareability"        "ITEM_NOT_SHAREABLE"
-    "ItemDeclarations"        "DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_TO_SPECTATORS"
-    
+
     "MaxUpgradeLevel"       "1"
     "ItemBaseLevel"         "1"
     
     "precache"
     {
-      "particle"              "particles/frostivus_herofx/queen_shadow_strike_linear_parent.vpcf"
+      "particle"              "particles/units/heroes/hero_magnataur/magnataur_shockwave.vpcf"
       "particle_folder"       "particles/test_particle"
-      "soundfile"             "soundevents/game_sounds_heroes/game_sounds_abaddon.vsndevts"
+      "soundfile"             "soundevents/game_sounds_heroes/game_sounds_magnataur.vsndevts"
     }
+
+    "OnEquip"
+    {
+      "RunScript"
+      {
+        "ScriptFile"  "weapons.lua"
+        "Function"    "Equip"
+      }
+    }
+
     "OnSpellStart"
     {
       "LinearProjectile"
       {
-        "EffectName"      "particles/frostivus_herofx/queen_shadow_strike_linear_parent.vpcf"
+        "EffectName"      "particles/units/heroes/hero_magnataur/magnataur_shockwave.vpcf"
         "MoveSpeed"       "%speed"
-        //"StartPosition"   "attach_attack1"
         "FixedDistance"   "%distance"
         "StartRadius"     "%radius"
         "EndRadius"       "%radius"
         "TargetTeams"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
-        "TargetTypes"     "DOTA_UNIT_TARGET_HERO"
+        "TargetTypes"     "DOTA_UNIT_TARGET_ALL"
         "TargetFlags"     "DOTA_UNIT_TARGET_FLAG_NONE"
         "HasFrontalCone"    "0"
         "ProvidesVision"    "0"
         "VisionRadius"      "0"
       }
+
       "FireSound"
       {
-        "EffectName"    "Hero_Abaddon.AphoticShield.Cast"
+        "EffectName"    "Hero_Magnataur.ShockWave.Particle"
         "Target"        "CASTER"
       }
-      "ApplyModifier"
+      
+      "RunScript"
       {
-        "Target"      "CASTER"
-        "ModifierName"  "modifier_item_shield"
+        "ScriptFile"  "weapons.lua"
+        "Function"    "Fire"
       }
     }
     
@@ -72,62 +82,401 @@
       "Damage"
       {
         "Target"      "TARGET"
-        "Type"    "DAMAGE_TYPE_PHYSICAL"
+        "Type"    "DAMAGE_TYPE_PURE"
         "Damage"  "%damage"
       }
     }
-    
-    "Modifiers"
-    {
-      "modifier_item_shield"
-      {
-        "EffectName"    "particles/test_particle/damage_immunity.vpcf"
-        "EffectAttachType"  "follow_origin"
-        "Target"      "CASTER"
-        
-        "Duration" "%duration"
-        "TextureName" "abaddon_aphotic_shield"
-        "Properties"
-        {
-          "MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE"    "%damage_reduction"
-        }
-      }
-    }
-    
     // Special  
     //-------------------------------------------------------------------------------------------------------------
     "AbilitySpecial"
     {
       "01"
       {
-        "var_type"        "FIELD_FLOAT"
-        "duration"        "4.0"
-      }
-      
-      "02"
-      {
-        "var_type"        "FIELD_INTEGER"
-        "damage_reduction"    "-50"
-      }
-      "03"
-      {
         "var_type"        "FIELD_INTEGER"
         "radius"          "150"
       }
-      "04"
+      "02"
       {
         "var_type"        "FIELD_INTEGER"
         "speed"           "1800"
       }
-      "05"
+      "03"
       {
         "var_type"        "FIELD_FLOAT"
         "distance"        "900"
       }
+      "04"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "damage"          "200"
+      }
+      "05"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "capacity"        "15"
+      }
+    }
+  }
+
+  "item_shoot_gun"
+  {
+    "ID"                        "1838"
+    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+    "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_ALL"
+    "BaseClass"                 "item_datadriven"
+    "AbilityCastAnimation"      "ACT_DOTA_ATTACK"
+    "AbilityTextureName"        "item_shoot_gun"
+
+    // Stats
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastRange"        "900"
+    "AbilityCastPoint"        "0.3"
+    "AbilityCooldown"         "3.0"
+
+    // Item Info
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityManaCost"       "0"
+    "ItemCost"            "0"
+    "ItemInitialCharges"      "5"
+    "ItemDroppable"         "1"
+    "ItemSellable"          "1"
+    "ItemRequiresCharges"     "1"
+    "ItemShareability"        "ITEM_NOT_SHAREABLE"
+
+    "MaxUpgradeLevel"       "1"
+    "ItemBaseLevel"         "1"
+    
+    "precache"
+    {
+      "particle"              "particles/weapons/shock_gun.vpcf"
+      "particle_folder"       "particles/test_particle"
+      "soundfile"             "soundevents/game_sounds_heroes/game_sounds_sniper.vsndevts"
+    }
+
+    "OnEquip"
+    {
+      "RunScript"
+      {
+        "ScriptFile"  "weapons.lua"
+        "Function"    "Equip"
+      }
+    }
+
+    "OnSpellStart"
+    {
+      "LinearProjectile"
+      {
+        "EffectName"      "particles/weapons/shock_gun.vpcf"
+        "MoveSpeed"       "%speed"
+        "FixedDistance"   "%distance"
+        "StartRadius"     "%start_radius"
+        "EndRadius"       "%end_radius"
+        "TargetTeams"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
+        "TargetTypes"     "DOTA_UNIT_TARGET_ALL"
+        "TargetFlags"     "DOTA_UNIT_TARGET_FLAG_NONE"
+        "HasFrontalCone"    "1"
+        "ProvidesVision"    "0"
+        "VisionRadius"      "0"
+      }
+
+      "FireSound"
+      {
+        "EffectName"    "Ability.Assassinate"
+        "Target"        "CASTER"
+      }
+      
+      "RunScript"
+      {
+        "ScriptFile"  "weapons.lua"
+        "Function"    "Fire"
+      }
+    }
+    
+    "OnProjectileHitUnit"
+    {     
+      "DeleteOnHit" "0"
+      "Damage"
+      {
+        "Target"      "TARGET"
+        "Type"    "DAMAGE_TYPE_PURE"
+        "Damage"  "%damage"
+      }
+    }
+    // Special  
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "start_radius"    "50"
+      }
+      "02"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "end_radius"      "150"
+      }
+      "03"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "speed"           "2800"
+      }
+      "04"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "distance"        "300"
+      }
+      "05"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "damage"          "500"
+      }
       "06"
       {
         "var_type"        "FIELD_INTEGER"
-        "damage"          "1000"
+        "capacity"        "15"
+      }
+    }
+  } 
+
+  "item_shock_gun"
+  {
+    "ID"                        "1839"
+    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+    "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_ALL"
+    "BaseClass"                 "item_datadriven"
+    "AbilityCastAnimation"      "ACT_DOTA_ATTACK"
+    "AbilityTextureName"        "item_shock_gun"
+
+    // Stats
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastRange"        "3200"
+    "AbilityCastPoint"        "0.3"
+    "AbilityCooldown"         "4.0"
+
+    // Item Info
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityManaCost"       "0"
+    "ItemCost"            "0"
+    "ItemInitialCharges"      "3"
+    "ItemDroppable"         "1"
+    "ItemSellable"          "0"
+    "ItemRequiresCharges"     "1"
+    "ItemShareability"        "ITEM_NOT_SHAREABLE"
+
+    "MaxUpgradeLevel"       "1"
+    "ItemBaseLevel"         "1"
+    
+    "precache"
+    {
+      "particle"              "particles/econ/items/ancient_apparition/aa_blast_ti_5/ancient_apparition_ice_blast_final_ti5.vpcf"
+      "particle_folder"       "particles/test_particle"
+      "soundfile"             "soundevents/game_sounds_heroes/game_sounds_sniper.vsndevts"
+    }
+
+    "OnEquip"
+    {
+      "RunScript"
+      {
+        "ScriptFile"  "weapons.lua"
+        "Function"    "Equip"
+      }
+    }
+
+    "OnSpellStart"
+    {
+
+      "FireSound"
+      {
+        "EffectName"    "Ability.Assassinate"
+        "Target"        "CASTER"
+      }
+      
+      "RunScript"
+      {
+        "ScriptFile"  "weapons.lua"
+        "Function"    "Fire"
+      }
+      "RunScript"
+      {
+        "ScriptFile"  "items/shock_gun.lua"
+        "Function"    "Fire"
+        "target"      "POINT"
+      }
+
+      "LinearProjectile"
+      {
+        "Target"         "POINT"
+        "MoveSpeed"     "%speed"
+        "StartRadius"   "0"
+        "EndRadius"      "0"
+        "HasFrontalCone" "0"
+        "TargetTeams"   "DOTA_UNIT_TARGET_TEAM_NONE"
+        "TargetTypes"   "DOTA_UNIT_TARGET_NONE"
+        "TargetFlags"   "DOTA_UNIT_TARGET_FLAG_NONE"            
+        "ProvidesVision" "0"  
+      }
+    }
+
+    "OnProjectileFinish"
+    {
+      "RunScript"
+      {
+        "ScriptFile"  "items/shock_gun.lua"
+        "Function"    "Explosion"
+        "Target"      "POINT"
+      }
+    }
+
+    // Special  
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "speed"           "3800"
+      }
+      "02"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "radius"          "400"
+      }
+      "03"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "min_dmg"         "300"
+      }
+      "04"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "max_dmg"         "500"
+      }
+      "05"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "capacity"        "7"
+      }
+    }
+  }
+
+  "item_rocket_launcher"
+  {
+    "ID"                        "1839"
+    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+    "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_ALL"
+    "BaseClass"                 "item_datadriven"
+    "AbilityCastAnimation"      "ACT_DOTA_ATTACK"
+    "AbilityTextureName"        "item_rocket_gun"
+
+    // Stats
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastRange"        "2000"
+    "AbilityCastPoint"        "0.3"
+    "AbilityCooldown"         "3.0"
+
+    // Item Info
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityManaCost"       "0"
+    "ItemCost"            "0"
+    "ItemInitialCharges"      "5"
+    "ItemDroppable"         "1"
+    "ItemSellable"          "0"
+    "ItemRequiresCharges"     "1"
+    "ItemShareability"        "ITEM_NOT_SHAREABLE"
+
+    "MaxUpgradeLevel"       "1"
+    "ItemBaseLevel"         "1"
+    
+    "precache"
+    {
+      "particle"              "particles/units/heroes/hero_batrider/batrider_flamebreak.vpcf"
+      "particle_folder"       "particles/test_particle"
+      "soundfile"             "soundevents/game_sounds_heroes/game_sounds_sniper.vsndevts"
+    }
+
+    "OnEquip"
+    {
+      "RunScript"
+      {
+        "ScriptFile"  "weapons.lua"
+        "Function"    "Equip"
+      }
+    }
+
+    "OnSpellStart"
+    {
+      "FireSound"
+      {
+        "EffectName"    "Ability.Assassinate"
+        "Target"        "CASTER"
+      }
+      
+      "RunScript"
+      {
+        "ScriptFile"  "weapons.lua"
+        "Function"    "Fire"
+      }
+
+      "RunScript"
+      {
+        "ScriptFile"  "items/rocket_launcher.lua"
+        "Function"    "Fire"
+        "target"      "POINT"
+      }
+    }
+
+    "OnProjectileHitUnit"
+    {
+      "RunScript"
+      {
+        "ScriptFile"  "items/rocket_launcher.lua"
+        "Function"    "Explosion"
+        "Target"      "POINT"
+      }
+    }
+
+    "OnProjectileFinish"
+    {
+      "RunScript"
+      {
+        "ScriptFile"  "items/rocket_launcher.lua"
+        "Function"    "Explosion"
+        "Target"      "POINT"
+      }
+    }
+
+    // Special  
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "speed"           "1800"
+      }
+      "02"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "radius"          "400"
+      }
+      "03"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "capacity"        "10"
+      }
+       "04"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "min_dmg"         "300"
+      }
+      "05"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "max_dmg"         "400"
       }
     }
   }
