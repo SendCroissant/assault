@@ -1,11 +1,11 @@
 "AddonInfo"
 {
-  "TeamCount" "10"
-  "maps"      "template_map"
+  "TeamCount" "2"
+  "maps"      "assault_test"
   "IsPlayable"  "1"
-  "template_map"
+  "assault_test"
   {
-          "MaxPlayers"                    "10"
+          "MaxPlayers"                    "2"
   }
 //  "desert_duo"
 //  {
