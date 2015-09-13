@@ -35,6 +35,7 @@ function Equip(keys)
   end
   if item.spawner ~= nil then
     item.spawner:Spawn()
+    item.spawner = nil
   end
 end
 

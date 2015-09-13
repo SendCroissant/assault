@@ -15,7 +15,7 @@
     //-------------------------------------------------------------------------------------------------------------
     "AbilityCastRange"        "900"
     "AbilityCastPoint"        "0.3"
-    "AbilityCooldown"         "3.0"
+    "AbilityCooldown"         "2.0"
 
     // Item Info
     //-------------------------------------------------------------------------------------------------------------
@@ -103,12 +103,12 @@
       "03"
       {
         "var_type"        "FIELD_FLOAT"
-        "distance"        "900"
+        "distance"        "1900"
       }
       "04"
       {
         "var_type"        "FIELD_INTEGER"
-        "damage"          "200"
+        "damage"          "400"
       }
       "05"
       {
@@ -130,9 +130,9 @@
 
     // Stats
     //-------------------------------------------------------------------------------------------------------------
-    "AbilityCastRange"        "900"
+    "AbilityCastRange"        "0"
     "AbilityCastPoint"        "0.3"
-    "AbilityCooldown"         "3.0"
+    "AbilityCooldown"         "2.0"
 
     // Item Info
     //-------------------------------------------------------------------------------------------------------------
@@ -149,7 +149,7 @@
     
     "precache"
     {
-      "particle"              "particles/weapons/shock_gun.vpcf"
+      "particle"              "particles/weapons/shootgun1.vpcf"
       "particle_folder"       "particles/test_particle"
       "soundfile"             "soundevents/game_sounds_heroes/game_sounds_sniper.vsndevts"
     }
@@ -165,20 +165,6 @@
 
     "OnSpellStart"
     {
-      "LinearProjectile"
-      {
-        "EffectName"      "particles/weapons/shock_gun.vpcf"
-        "MoveSpeed"       "%speed"
-        "FixedDistance"   "%distance"
-        "StartRadius"     "%start_radius"
-        "EndRadius"       "%end_radius"
-        "TargetTeams"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
-        "TargetTypes"     "DOTA_UNIT_TARGET_ALL"
-        "TargetFlags"     "DOTA_UNIT_TARGET_FLAG_NONE"
-        "HasFrontalCone"    "1"
-        "ProvidesVision"    "0"
-        "VisionRadius"      "0"
-      }
 
       "FireSound"
       {
@@ -191,16 +177,41 @@
         "ScriptFile"  "weapons.lua"
         "Function"    "Fire"
       }
+
+      "RunScript"
+      {
+        "ScriptFile"  "items/shoot_gun.lua"
+        "Function"    "Fire"
+        "Target"      "POINT"
+      }
     }
     
     "OnProjectileHitUnit"
     {     
-      "DeleteOnHit" "0"
       "Damage"
       {
         "Target"      "TARGET"
         "Type"    "DAMAGE_TYPE_PURE"
         "Damage"  "%damage"
+      }
+
+      "RunScript"
+      {
+        "ScriptFile"  "items/shoot_gun.lua"
+        "Function"    "Hit"
+        "Target"      "POINT"
+      }
+
+      "FireEffect"
+      {
+        "EffectName"        "particles/generic_gameplay/generic_hit_blood.vpcf"
+        "EffectAttachType"  "follow_origin"
+        "Target"            "TARGET"
+
+        "ControlPoints"
+        {
+          "01"  "5 0 0"
+        }
       }
     }
     // Special  
@@ -210,32 +221,32 @@
       "01"
       {
         "var_type"        "FIELD_INTEGER"
-        "start_radius"    "50"
+        "radius"    "50"
       }
       "02"
       {
         "var_type"        "FIELD_INTEGER"
-        "end_radius"      "150"
+        "max_dist"           "3800"
       }
       "03"
       {
         "var_type"        "FIELD_INTEGER"
-        "speed"           "2800"
+        "damage"          "100"
       }
       "04"
       {
-        "var_type"        "FIELD_FLOAT"
-        "distance"        "300"
+        "var_type"        "FIELD_INTEGER"
+        "capacity"        "15"
       }
       "05"
       {
         "var_type"        "FIELD_INTEGER"
-        "damage"          "500"
+        "spread"        "20"
       }
       "06"
       {
         "var_type"        "FIELD_INTEGER"
-        "capacity"        "15"
+        "count"        "10"
       }
     }
   } 
@@ -252,9 +263,9 @@
 
     // Stats
     //-------------------------------------------------------------------------------------------------------------
-    "AbilityCastRange"        "3200"
-    "AbilityCastPoint"        "0.3"
-    "AbilityCooldown"         "4.0"
+    "AbilityCastRange"        "0"
+    "AbilityCastPoint"        "0.4"
+    "AbilityCooldown"         "5.0"
 
     // Item Info
     //-------------------------------------------------------------------------------------------------------------
@@ -337,7 +348,7 @@
       "01"
       {
         "var_type"        "FIELD_INTEGER"
-        "speed"           "3800"
+        "speed"           "1000"
       }
       "02"
       {
@@ -376,7 +387,7 @@
     //-------------------------------------------------------------------------------------------------------------
     "AbilityCastRange"        "2000"
     "AbilityCastPoint"        "0.3"
-    "AbilityCooldown"         "3.0"
+    "AbilityCooldown"         "4.0"
 
     // Item Info
     //-------------------------------------------------------------------------------------------------------------

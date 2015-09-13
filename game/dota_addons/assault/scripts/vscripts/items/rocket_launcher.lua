@@ -28,7 +28,6 @@ function Fire(keys)
     vVelocity         = vel,
     bProvidesVision   = false,
   });
-  caster.projectile = projectile;
 end
 
 function Explosion(keys)

@@ -5,7 +5,7 @@
   "IsPlayable"  "1"
   "assault_test"
   {
-          "MaxPlayers"                    "2"
+          "MaxPlayers"                    "4"
   }
 //  "desert_duo"
 //  {
